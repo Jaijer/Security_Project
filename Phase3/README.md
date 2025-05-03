@@ -151,20 +151,11 @@ After applying our defensive measures:
 ### Validation Evidence
 
 We verified our defenses using both Metasploit and our custom script:
+### Before:
+![Metasploit Exploitation](https://github.com/Jaijer/Security_Project/blob/main/Phase1/img1.jpeg?raw=true)
 
-```bash
-# Metasploit validation
-msf6 exploit(unix/ftp/proftpd_modcopy_exec) > exploit
-[*] Started reverse TCP handler on 192.168.56.102:4444
-[-] 192.168.56.104:21 - Exploit failed: The server responded with an error: 550 SITE CPFR command denied
-[*] Exploit completed, but no session was created.
-
-# Custom script validation
-$ python exploitcode.py
-[+] Listening on 192.168.56.102:4444...
-[+] Logged in anonymously
-[!] Error: 550 SITE CPFR command denied
-```
+### After:
+![Metasploit Exploitation](https://github.com/Jaijer/Security_Project/blob/main/Phase3/img5.jpeg?raw=true)
 
 The logs from our SIEM platform also confirmed that the attack attempts were unsuccessful, with appropriate error messages being returned to the attacker.
 
