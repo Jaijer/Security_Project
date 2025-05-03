@@ -117,7 +117,7 @@ The script works by:
 5. Executing the shell to establish a connection back to our attacker machine
 
 #### Custom Script Execution:
-![Custom Script Exploitation](https://github.com/Jaijer/Security_Project/blob/main/Phase1/img2?raw=true)
+![Custom Script Exploitation](https://github.com/Jaijer/Security_Project/blob/main/Phase1/img2.jpeg?raw=true)
 
 The custom script successfully:
 - Connected to the FTP server anonymously
