@@ -36,7 +36,7 @@ We verified the active forwarders using:
 sudo /opt/splunkforwarder/bin/splunk list forward-server
 ```
 
-![Splunk Forwarder Configuration](https://github.com/Jaijer/Security_Project/blob/main/Phase2/img3?raw=true)
+![Splunk Forwarder Configuration](https://github.com/Jaijer/Security_Project/blob/main/Phase2/img3.jpeg?raw=true)
 
 As shown in the screenshot, we successfully configured the forwarder to communicate with our Splunk server on 192.168.56.103:9997.
 
@@ -46,7 +46,7 @@ As shown in the screenshot, we successfully configured the forwarder to communic
 
 After collecting logs from both environments, we created visualizations to analyze the attack patterns:
 
-![Splunk Dashboard](https://github.com/Jaijer/Security_Project/blob/main/Phase2/img4?raw=true)
+![Splunk Dashboard](https://github.com/Jaijer/Security_Project/blob/main/Phase2/img4.jpeg?raw=true)
 
 The dashboard shows:
 - A timeline of events from the victim machine
