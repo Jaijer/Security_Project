@@ -184,25 +184,6 @@ Our defensive strategy significantly improved the security posture of the ProFTP
    - Legitimate FTP functionality remained intact
    - Anonymous users could still access allowed resources
 
-## Additional Recommendations
-
-While our implemented defenses effectively mitigated the specific vulnerability, we recommend the following additional measures for comprehensive security:
-
-1. **Regular Patching:**
-   - Implement a regular patching schedule
-   - Monitor security mailing lists for new vulnerabilities
-
-2. **File Integrity Monitoring:**
-   - Implement a file integrity monitoring solution
-   - Alert on unauthorized file changes in critical directories
-
-3. **Network Segmentation:**
-   - Place FTP services in a DMZ
-   - Implement network segmentation to limit lateral movement
-
-4. **Consider Alternatives:**
-   - Evaluate more secure alternatives like SFTP or FTPS
-   - Consider replacing FTP with more modern and secure file transfer protocols
 
 ## Conclusion
 
