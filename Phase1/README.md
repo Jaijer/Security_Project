@@ -30,7 +30,7 @@ The first attack method utilized the Metasploit Framework's `unix/ftp/proftpd_mo
 3. Executed the exploit, gaining a reverse shell on the target system
 
 #### Exploit Execution:
-![Metasploit Exploitation](https://github.com/Jaijer/Security_Project/blob/main/Phase1/img1?raw=true)
+![Metasploit Exploitation](https://github.com/Jaijer/Security_Project/blob/main/Phase1/img1.jpeg?raw=true)
 
 The exploit successfully:
 - Connected to the FTP server
