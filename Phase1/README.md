@@ -1,46 +1,49 @@
-Vulnerable Service Selection
-For this project, we targeted the ProFTPD service on Metasploitable3. This FTP server contains a well-known vulnerability (mod_copy module) that allows an attacker to copy files within the target system without authentication.
-Environment Setup
-Victim Environment
+# Phase 1: Setup and Compromise the Service
 
-VM: Metasploitable3
-IP Address: 192.168.56.104
-Vulnerable Service: ProFTPD with mod_copy module enabled
+## Vulnerable Service Selection
+For this project, we targeted the **ProFTPD** service on Metasploitable3. This FTP server contains a well-known vulnerability (mod_copy module) that allows an attacker to copy files within the target system without authentication.
 
-Attacker Environment
+## Environment Setup
 
-VM: Kali Linux
-IP Address: 192.168.56.102
-Tools: Metasploit Framework, Custom Python Exploit
+### Victim Environment 
+- **VM**: Metasploitable3 
+- **IP Address**: 192.168.56.104
+- **Vulnerable Service**: ProFTPD with mod_copy module enabled
 
-Attack Execution
-Method 1: Using Metasploit Framework
-The first attack method utilized the Metasploit Framework's unix/ftp/proftpd_modcopy_exec module to exploit the vulnerable ProFTPD service.
-Steps:
+### Attacker Environment
+- **VM**: Kali Linux
+- **IP Address**: 192.168.56.102
+- **Tools**: Metasploit Framework, Custom Python Exploit
 
-Initiated Metasploit and selected the appropriate exploit module
-Set the necessary parameters:
+## Attack Execution
 
-RHOSTS: 192.168.56.104 (Target IP)
-LHOST: 192.168.56.102 (Attacker IP)
-SITEPATH: /var/www/html (Web directory)
+### Method 1: Using Metasploit Framework
 
+The first attack method utilized the Metasploit Framework's `unix/ftp/proftpd_modcopy_exec` module to exploit the vulnerable ProFTPD service.
 
-Executed the exploit, gaining a reverse shell on the target system
+#### Steps:
+1. Initiated Metasploit and selected the appropriate exploit module
+2. Set the necessary parameters:
+   - RHOSTS: 192.168.56.104 (Target IP)
+   - LHOST: 192.168.56.102 (Attacker IP)
+   - SITEPATH: /var/www/html (Web directory)
+3. Executed the exploit, gaining a reverse shell on the target system
 
-Exploit Execution:
-
+#### Exploit Execution:
+![Metasploit Exploitation](https://github.com/Jaijer/Security_Project/blob/main/Phase1/img1?raw=true)
 
 The exploit successfully:
+- Connected to the FTP server
+- Executed the mod_copy commands to place a PHP webshell
+- Established a reverse shell connection back to our attacking machine
 
-Connected to the FTP server
-Executed the mod_copy commands to place a PHP webshell
-Established a reverse shell connection back to our attacking machine
+### Method 2: Using Custom Python Script
 
-Method 2: Using Custom Python Script
 We developed a custom Python script that replicates the functionality of the Metasploit module but leverages Python's ftplib to interact with the ProFTPD server.
-Script Overview:
-pythonimport ftplib
+
+#### Script Overview:
+```python
+import ftplib
 import socket
 import sys
 import threading
@@ -104,36 +107,39 @@ try:
         time.sleep(1)
 except KeyboardInterrupt:
     print("\n[+] Exiting...")
+```
+
 The script works by:
+1. Setting up a listener for the reverse shell
+2. Connecting to the FTP server anonymously
+3. Using the SITE CPFR and SITE CPTO commands to abuse the mod_copy module
+4. Placing a Python reverse shell in the web directory
+5. Executing the shell to establish a connection back to our attacker machine
 
-Setting up a listener for the reverse shell
-Connecting to the FTP server anonymously
-Using the SITE CPFR and SITE CPTO commands to abuse the mod_copy module
-Placing a Python reverse shell in the web directory
-Executing the shell to establish a connection back to our attacker machine
-
-Custom Script Execution:
+#### Custom Script Execution:
+![Custom Script Exploitation](https://github.com/Jaijer/Security_Project/blob/main/Phase1/img2?raw=true)
 
 The custom script successfully:
+- Connected to the FTP server anonymously
+- Used the SITE CPFR and CPTO commands
+- Received an error that the file exists, demonstrating the vulnerability
+- Established a reverse shell connection (as seen in our listening session)
 
-Connected to the FTP server anonymously
-Used the SITE CPFR and CPTO commands
-Received an error that the file exists, demonstrating the vulnerability
-Established a reverse shell connection (as seen in our listening session)
+## Vulnerability Analysis
 
-Vulnerability Analysis
 The ProFTPD mod_copy module vulnerability (CVE-2015-3306) allows remote attackers to read and write to arbitrary files on the system via the SITE CPFR and SITE CPTO commands. This vulnerability exists because:
 
-The mod_copy module allows copying files between locations on the server
-No authentication is required to use these commands
-The module doesn't properly restrict where files can be copied to or from
+1. The mod_copy module allows copying files between locations on the server
+2. No authentication is required to use these commands
+3. The module doesn't properly restrict where files can be copied to or from
 
 This vulnerability is particularly dangerous as it allows attackers to:
+- Write malicious files to web directories
+- Execute arbitrary code on the target system
+- Create backdoors for persistent access
 
-Write malicious files to web directories
-Execute arbitrary code on the target system
-Create backdoors for persistent access
+## Conclusion
 
-Conclusion
 We successfully compromised the ProFTPD service on Metasploitable3 using both Metasploit and a custom Python script. The vulnerability in the mod_copy module allowed us to place a reverse shell on the target system and execute arbitrary commands, demonstrating the severe impact of this security flaw.
+
 In Phase 2, we will analyze the logs from both the victim and attacker machines to better understand the attack patterns and indicators of compromise.
